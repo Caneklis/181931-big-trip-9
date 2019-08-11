@@ -49,8 +49,13 @@ renderTemplate(tripList, getLoadTripCardTemplate(), `beforeend`);
 const tripEventsList = document.querySelector(`.trip-events__list`);
 renderTemplate(tripEventsList, getLoadTripEventTemplate().repeat(3), `beforeend`);
 
-const tripEventItem = document.querySelector(`li.trip-events__item`);
-renderTemplate(tripEventItem, getLoadAddTripEventTemplate(), `beforeend`);
+const tripEventItem = document.querySelectorAll(`li.trip-events__item`);
+for (const value of tripEventItem) {
+  renderTemplate(value, getLoadAddTripEventTemplate(), `beforeend`);
+}
 
-const tripEventDetails = document.querySelector(`li.trip-events__item form`);
-renderTemplate(tripEventDetails, getLoadEventDetailsTemplate(), `beforeend`);
+
+const tripEventDetails = document.querySelectorAll(`li.trip-events__item form`);
+for (const value of tripEventDetails) {
+  renderTemplate(value, getLoadEventDetailsTemplate(), `beforeend`);
+}
