@@ -37,25 +37,25 @@ const tripEvents = document.querySelector(`.trip-events`);
 
 renderTemplate(tripInfo, getLoadTripTemplate(), `afterbegin`);
 renderTemplate(tripControlsTitle, getLoadMenuTemplate(), `afterend`);
-renderTemplate(tripControls, getLoadFilterTemplate(), `beforeend`);
-renderTemplate(tripEvents, getLoadTripSortTemplate(), `beforeend`);
-renderTemplate(tripEvents, getLoadTripsListTemplate(), `beforeend`);
+renderTemplate(tripControls, getLoadFilterTemplate());
+renderTemplate(tripEvents, getLoadTripSortTemplate());
+renderTemplate(tripEvents, getLoadTripsListTemplate());
 
 renderTemplate(tripEvents, getLoadAddTripEventTemplate(), `afterbegin`);
 
 const tripList = document.querySelector(`.trip-days`);
-renderTemplate(tripList, getLoadTripCardTemplate(), `beforeend`);
+renderTemplate(tripList, getLoadTripCardTemplate());
 
 const tripEventsList = document.querySelector(`.trip-events__list`);
-renderTemplate(tripEventsList, getLoadTripEventTemplate().repeat(3), `beforeend`);
+renderTemplate(tripEventsList, getLoadTripEventTemplate().repeat(3));
 
 const tripEventItem = document.querySelectorAll(`li.trip-events__item`);
 for (const value of tripEventItem) {
-  renderTemplate(value, getLoadAddTripEventTemplate(), `beforeend`);
+  renderTemplate(value, getLoadAddTripEventTemplate());
 }
 
 
 const tripEventDetails = document.querySelectorAll(`li.trip-events__item form`);
 for (const value of tripEventDetails) {
-  renderTemplate(value, getLoadEventDetailsTemplate(), `beforeend`);
+  renderTemplate(value, getLoadEventDetailsTemplate());
 }
