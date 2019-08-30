@@ -1,6 +1,12 @@
-export const getLoadMenuTemplate = () => {
+export const getLoadMenuTemplate = (menu) => {
   return `<nav class="trip-controls__trip-tabs  trip-tabs">
-            <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">Table</a>
-            <a class="trip-tabs__btn" href="#">Stats</a>
+            ${menu.map(menuList).join(``)}
           </nav>`;
+};
+
+const menuList = ({
+  title,
+  status
+}) => {
+  return `<a class="trip-tabs__btn  ${status ? `trip-tabs__btn--active` : ``}" href="#">${title}</a>`;
 };

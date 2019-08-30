@@ -22,13 +22,18 @@ import {
 import {
   getLoadTripEventTemplate
 } from './components/trip-event-template';
-import {
-  getLoadAddTripEventTemplate
-} from './components/add-trip-event-template';
-import {
-  getLoadEventDetailsTemplate
-} from './components/event-details-template';
 
+import {
+  filterData,
+  menuData,
+  getTripData
+} from './data';
+
+import {
+  editEventTpl
+} from './components/edit-trip-template';
+
+export const renderListTemplate = (container, list, template, place = `beforeEnd`) => container.insertAdjacentHTML(place, list.map(template).join(``));
 
 const tripInfo = document.querySelector(`.trip-info`);
 const tripControlsTitle = document.querySelector(`.trip-main__trip-controls h2`);
@@ -36,26 +41,33 @@ const tripControls = document.querySelector(`.trip-main__trip-controls`);
 const tripEvents = document.querySelector(`.trip-events`);
 
 renderTemplate(tripInfo, getLoadTripTemplate(), `afterbegin`);
-renderTemplate(tripControlsTitle, getLoadMenuTemplate(), `afterend`);
-renderTemplate(tripControls, getLoadFilterTemplate());
+
+renderTemplate(tripControlsTitle, getLoadMenuTemplate(menuData), `afterend`);
+renderTemplate(tripControls, getLoadFilterTemplate(filterData));
 renderTemplate(tripEvents, getLoadTripSortTemplate());
 renderTemplate(tripEvents, getLoadTripsListTemplate());
-
-renderTemplate(tripEvents, getLoadAddTripEventTemplate(), `afterbegin`);
 
 const tripList = document.querySelector(`.trip-days`);
 renderTemplate(tripList, getLoadTripCardTemplate());
 
 const tripEventsList = document.querySelector(`.trip-events__list`);
-renderTemplate(tripEventsList, getLoadTripEventTemplate().repeat(3));
+const renderEvent = (container, count) => {
+  container.insertAdjacentHTML(`beforeend`, new Array(count)
+    .fill(``)
+    .map(getTripData)
+    .map(getLoadTripEventTemplate)
+    .join(``));
+};
 
-const tripEventItem = document.querySelectorAll(`li.trip-events__item`);
-for (const value of tripEventItem) {
-  renderTemplate(value, getLoadAddTripEventTemplate());
-}
+renderEvent(tripEventsList, 2);
 
+const renderEventEdit = (container, count) => {
+  container.insertAdjacentHTML(`afterbegin`, new Array(count)
+    .fill(``)
+    .map(getTripData)
+    .map(editEventTpl)
+    .join(``));
+};
 
-const tripEventDetails = document.querySelectorAll(`li.trip-events__item form`);
-for (const value of tripEventDetails) {
-  renderTemplate(value, getLoadEventDetailsTemplate());
-}
+renderEventEdit(tripEventsList, 1);
+
