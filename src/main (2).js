@@ -26,8 +26,7 @@ import {
 import {
   filterData,
   menuData,
-  getTripData,
-  getEventsData
+  getTripData
 } from './data';
 
 import {
@@ -36,7 +35,7 @@ import {
 
 export const renderListTemplate = (container, list, template, place = `beforeEnd`) => container.insertAdjacentHTML(place, list.map(template).join(``));
 
-const CARDS_QUANTITY = 3;
+const CARD_QUANTITY = 3;
 const tripInfo = document.querySelector(`.trip-info`);
 const tripControlsTitle = document.querySelector(`.trip-main__trip-controls h2`);
 const tripControls = document.querySelector(`.trip-main__trip-controls`);
@@ -61,7 +60,7 @@ const renderEvent = (container, count) => {
     .join(``));
 };
 
-renderEvent(tripEventsList, CARDS_QUANTITY);
+renderEvent(tripEventsList, CARD_QUANTITY);
 
 const renderEventEdit = (container, count) => {
   container.insertAdjacentHTML(`afterbegin`, new Array(count)
@@ -73,9 +72,9 @@ const renderEventEdit = (container, count) => {
 
 renderEventEdit(tripEventsList, 1);
 
-const eventsData = getEventsData(CARDS_QUANTITY);
+const eventsData = getTripData(CARD_QUANTITY);
 
-const getTotalPrice = () => {
+const getPrice = () => {
   const tripPrices = eventsData.map((event) => event.price).reduce((a, b) => a + b);
   const offersPrices = eventsData.map((event) => Array.from(event.offers).reduce((a, b) => {
     return a + b.price;
@@ -83,7 +82,4 @@ const getTotalPrice = () => {
   return tripPrices + offersPrices;
 };
 
-const totalPrice = document.querySelector(`.trip-info__cost-value`);
-totalPrice.innerHTML = ``;
-
-renderTemplate(totalPrice, getTotalPrice());
+renderTemplate(document.querySelector(`.trip-info__cost`), getPrice(), `beforeend`);

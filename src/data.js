@@ -1,4 +1,4 @@
-import {getRandomList, getRandomValue} from './utils';
+import { getRandomList, getRandomValue } from './utils';
 
 
 export const filterData = [
@@ -24,48 +24,12 @@ export const menuData = [
   }
 ];
 
-const icons = [`taxi`, `bus`, `train`, `ship`, `transport`, `drive`, `flight`, `check-in`, `sightseeing`, `restaurant`];
+export const destination = [`Moscow`, `London`, `New-York`, `Tokyo`];
+
+export const transfer = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`];
+export const activity = [`Sightseeing`, `Restaurant`, `Check-in`];
 
 export const getTripData = () => ({
-  type: icons[Math.floor(Math.random() * 10)],
-
-  get getTitle() {
-    switch (this.type) {
-      case `taxi`:
-        return `Taxi to`;
-
-      case `bus`:
-        return `Bus to`;
-
-      case `train`:
-        return `Train to`;
-
-      case `ship`:
-        return `Ship to`;
-
-      case `transport`:
-        return `Transport to`;
-
-      case `drive`:
-        return `Drive to`;
-
-      case `flight`:
-        return `Flight to`;
-
-      case `check-in`:
-        return `Check-in in`;
-
-      case `sightseeing`:
-        return `Sightseeing in`;
-
-      case `restaurant`:
-        return `Restaurant in`;
-
-      default:
-        return ``;
-    }
-  },
-
   types: [
     {
       name: `taxi`,
@@ -105,21 +69,28 @@ export const getTripData = () => ({
     },
     {
       name: `restaurant`,
-      prep: `in`
+      label: `in`
     },
     {
       name: `trip`,
-      prep: `to`
+      label: `to`
     }
-  ],
+  ].sort(() => 0.5 - Math.random()).slice(0, 1)[0],
 
-  destination: [`Moscow`, `London`, `New-York`, `Tokyo`][Math.floor(Math.random() * 4)],
+  destination,
 
   getPhoto() {
     return `http://picsum.photos/300/150?r=${Math.random()}`;
   },
 
-  description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum. Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus`.split(`. `).sort(() => 0.5 - Math.random()),
+  photos: new Array(getRandomValue(2, 5)).fill(``).map(() => `http://picsum.photos/300/150?r=`),
+
+  description: [
+    `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.`,
+    `Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum.`,
+    `Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui.`,
+    `Sed sed nisi sed augue convallis suscipit in sed felis.`,
+    `Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus`][Math.floor(Math.random() * 5)],
 
   startDate: Date.now(),
   endDate: Date.now() + 1 + Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000,
@@ -151,6 +122,13 @@ export const getTripData = () => ({
       isChecked: false,
       value: `seats`
     }
-  ], 4)
+  ], 2),
+  activity,
+  transfer,
 
 });
+
+export const getEventsData = (count) => {
+  const events = new Array(count);
+  return events.fill(``).map(getTripData).sort((a, b) => a.start - b.start);
+};

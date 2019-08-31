@@ -1,10 +1,10 @@
-export const getLoadTripEventTemplate = ({type, destination, price, offers, startDate, endDate, getTitle}) => {
+export const getLoadTripEventTemplate = ({ types, destination, price, offers, startDate, endDate }) => {
   return `<li class="trip-events__item">
             <div class="event">
               <div class="event__type">
-                <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
+                <img class="event__type-icon" width="42" height="42" src="img/icons/${types.name}.png" alt="Event type icon">
               </div>
-              <h3 class="event__title">${getTitle} ${destination}</h3>
+              <h3 class="event__title">${types.label} ${destination[Math.floor(Math.random() * 4)]}</h3>
 
               <div class="event__schedule">
                 <p class="event__time">
